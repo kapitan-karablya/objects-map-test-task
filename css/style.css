@@ -1,0 +1,372 @@
+/* Helvetica Neue Cyr Roman*/
+@font-face {
+    font-family: 'HelveticaNeueCyr';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Helvetica Neue Cyr Roman'),
+    local('HelveticaNeueCyr-Roman'),
+    url('../fonts/HelveticaNeueCyr-Roman.woff2') format('woff2'),
+    url('../fonts/HelveticaNeueCyr-Roman.woff') format('woff'),
+    url('../fonts/HelveticaNeueCyr-Roman.ttf') format('ttf'),
+    url('../fonts/HelveticaNeueCyr-Roman.eot') format('eot');
+}
+
+/* Helvetica Neue Cyr Bold */
+@font-face {
+    font-family: 'HelveticaNeueCyr';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Helvetica Neue Cyr Bold'),
+    local('HelveticaNeueCyr-Bold'),
+    url('../fonts/HelveticaNeueCyr-Bold.woff2') format('woff2'),
+    url('../fonts/HelveticaNeueCyr-Bold.woff') format('woff'),
+    url('../fonts/HelveticaNeueCyr-Bold.ttf') format('ttf'),
+    url('../fonts/HelveticaNeueCyr-Bold.eot') format('eot');
+}
+
+:root {
+    /*--color-dark: #1e1e1e;*/
+    --color-black: #000;
+    /*--color-light: #dde4fd;*/
+    --color-white: #fff;
+
+    --gray-light: #fafafa;
+
+    --gray-dark: #929292;
+
+    /*--bg-color: var(--color-black);
+    --text-color: var(--color-white);*/
+    --main-color: #1e355d;
+    --secondary-color: #ff9e00;
+
+    --email-link-color: #32b3e9;
+
+    --country-bg-color: var(--color-white);
+    --active-country-bg-color: var(--secondary-color);
+
+
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+.main {
+    height: 100%;
+    padding: 7px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    font-family: 'HelveticaNeueCyr', sans-serif;
+}
+
+.sidebar {
+    width: 396px;
+    height: 100%;
+    background-color: var(--gray-light, #fafafa);
+    box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.17);
+}
+
+
+.countries {
+    width: 100%;
+    height: 34px;
+    margin-bottom: 13px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.country {
+    width: 198px;
+    height: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--gray-dark);
+    background-color: var(--color-white, #fff);
+    border: 1px solid var(--gray-dark, #929292);
+
+}
+
+.country.active {
+    color: var(--color-white, #fff);
+    background-color: var(--secondary-color, #ff9e00);
+    border: none;
+}
+
+
+.city {
+    padding: 8px 0;
+    font-size: 17px;
+    cursor: default;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+}
+
+.city-name {
+    padding: 20px 0;
+    font-weight: bold;
+    margin-left: 25px;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+    color: var(--main-color);
+}
+
+.city-name:after {
+    right: 41px;
+    top: 26px;
+    background-color: var(--main-color);
+    -webkit-mask-image: url("../img/dropdown.svg");
+    mask-image: url("../img/dropdown.svg");
+    width: 12px;
+    height: 8px;
+    content: "";
+    position: absolute;
+    transition: transform .5s;
+}
+
+summary.city-name::-webkit-details-marker{display:none;}
+summary.city-name::-moz-list-bullet{list-style-type:none;}
+summary.city-name {list-style: none;}
+
+details[open] > summary.city-name {
+    color: var(--secondary-color);
+}
+
+details[open] > summary.city-name:after {
+    transform: rotateZ(180deg);
+    background-color: var(--secondary-color);
+}
+
+
+details[open] > summary.city-name ~ *{
+    animation: sweep .4s ease-in-out;
+}
+
+@keyframes sweep {
+    0%    {opacity: 0;}
+    100%  {opacity: 1;}
+}
+
+.offices-list {
+    list-style-type: none;
+    font-size: 14px;
+    margin: 4px 0 30px 0;
+    padding-left: 28px;
+}
+
+.office {
+    margin-bottom: 40px;
+}
+
+.office-name {
+    color: var(--main-color);
+    font-weight: bold;
+    margin-bottom: 19px;
+}
+
+.full-name {
+    margin-bottom: 18px;
+}
+
+.phone-numbers {
+    margin-bottom: 16px;
+}
+
+.phone {
+    text-decoration: none;
+    color: var(--color-black, #000);
+    margin-right: 11px;
+}
+
+.email {
+    font-size: 16px;
+    text-decoration: none;
+    color: var(--email-link-color, #32b3e9);
+    margin-left: 2px;
+}
+
+.Крансоярск {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1578px;
+    height: 750px;
+    z-index: 67;
+}
+.Фигура_5 {
+    background-color: rgb(255, 158, 0);
+    position: absolute;
+    left: 349px;
+    top: 88px;
+    width: 12px;
+    height: 8px;
+    z-index: 66;
+}
+.Красноярск {
+    font-size: 17px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(255, 158, 0);
+    font-weight: bold;
+    line-height: 2.118;
+    position: absolute;
+    left: 32.663px;
+    top: 108.826px;
+    z-index: 65;
+}
+.Офис_1 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1578px;
+    height: 750px;
+    z-index: 64;
+}
+.Офис_КРАСНОЯРСК {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(30, 53, 93);
+    font-weight: bold;
+    line-height: 2.038;
+    text-align: center;
+    position: absolute;
+    left: 34.664px;
+    top: 146.182px;
+    z-index: 63;
+}
+.Лягушкин_Иван_Сергеевич {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(0, 0, 0);
+    line-height: 2.038;
+    text-align: center;
+    position: absolute;
+    left: 34.954px;
+    top: 181.182px;
+    z-index: 62;
+}
+._7_999__222_22_22 {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(0, 0, 0);
+    line-height: 2.038;
+    text-align: left;
+    position: absolute;
+    left: 34.023px;
+    top: 215.182px;
+    z-index: 61;
+}
+._7_999__222_22_22 {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(0, 0, 0);
+    line-height: 2.038;
+    text-align: left;
+    position: absolute;
+    left: 167.023px;
+    top: 215.182px;
+    z-index: 60;
+}
+.username_flagstudio_ru {
+    font-size: 16px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(50, 179, 233);
+    line-height: 1.783;
+    text-align: left;
+    position: absolute;
+    left: 36.995px;
+    top: 246.458px;
+    z-index: 59;
+}
+.Офис_2 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 1578px;
+    height: 750px;
+    z-index: 57;
+}
+.Офис_КРАСНОЯРСК_ЦЕНТР {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(30, 53, 93);
+    font-weight: bold;
+    line-height: 2.038;
+    text-align: left;
+    position: absolute;
+    left: 31.664px;
+    top: 304.182px;
+    z-index: 56;
+}
+.Зубенко_Михаил_Петрович {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(0, 0, 0);
+    line-height: 2.038;
+    text-align: center;
+    position: absolute;
+    left: 33.552px;
+    top: 339.182px;
+    z-index: 55;
+}
+._7_999__222_22_22 {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(0, 0, 0);
+    line-height: 2.038;
+    text-align: left;
+    position: absolute;
+    left: 34.023px;
+    top: 373.182px;
+    z-index: 54;
+}
+._7_999__222_22_22 {
+    font-size: 14px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(0, 0, 0);
+    line-height: 2.038;
+    text-align: left;
+    position: absolute;
+    left: 167.023px;
+    top: 373.182px;
+    z-index: 53;
+}
+.username_flagstudio_ru {
+    font-size: 16px;
+    font-family: "HelveticaNeueCyr";
+    color: rgb(50, 179, 233);
+    line-height: 1.783;
+    text-align: left;
+    position: absolute;
+    left: 36.995px;
+    top: 404.458px;
+    z-index: 52;
+}
+
+
+.Фигура_4 {
+    background-color: rgb(0, 0, 0);
+    opacity: 0.051;
+    position: absolute;
+    left: 7px;
+    top: 439px;
+    width: 395px;
+    height: 1px;
+    z-index: 49;
+}
+.Фигура_4 {
+    background-color: rgb(0, 0, 0);
+    opacity: 0.051;
+    position: absolute;
+    left: 7px;
+    top: 515px;
+    width: 395px;
+    height: 1px;
+    z-index: 44;
+}
