@@ -96,8 +96,7 @@ function init() {
             if (cityCluster.getClusters().length !== 0) {
                 cityCluster.balloon.open(cityCluster.getClusters()[0]);
                 myMap.setCenter(cityCluster.getClusters()[0].geometry.getBounds()[0], 6);
-            }
-            else {
+            } else {
                 myMap.setCenter(cityCluster.getGeoObjects()[0].geometry.getBounds()[0], 6);
                 myMap.setZoom(12);
                 cityCluster.getGeoObjects()[0].balloon.open(cityCluster.getGeoObjects()[0]);
@@ -110,7 +109,9 @@ function init() {
                 el.open = false;
             });
         } else {
-            cityCluster.balloon.close(cityCluster.getClusters()[0]);
+            cityCluster.getClusters().length !== 0 ?
+                cityCluster.balloon.close(cityCluster.getClusters()[0]) :
+                cityCluster.getGeoObjects()[0].balloon.close(cityCluster.getGeoObjects()[0]);
         }
     }
 
