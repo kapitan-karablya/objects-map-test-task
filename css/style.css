@@ -25,17 +25,13 @@
 }
 
 :root {
-    /*--color-dark: #1e1e1e;*/
     --color-black: #000;
-    /*--color-light: #dde4fd;*/
     --color-white: #fff;
 
     --gray-light: #fafafa;
 
     --gray-dark: #929292;
 
-    /*--bg-color: var(--color-black);
-    --text-color: var(--color-white);*/
     --main-color: #1e355d;
     --secondary-color: #ff9e00;
 
