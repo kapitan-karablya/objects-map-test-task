@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d64797a8-348a-49e9-ae46-3d6f24e78dab" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/script.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +74,7 @@
       <workItem from="1635842968851" duration="545000" />
       <workItem from="1635849155280" duration="20229000" />
       <workItem from="1635878453995" duration="3790000" />
-      <workItem from="1635932111941" duration="66692000" />
+      <workItem from="1635932111941" duration="66937000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил формирование элементов страницы по входным данным">
       <created>1635983137651</created>
@@ -106,7 +104,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636059241727</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Поправил закрытие балуна у городов с одним офисом">
+      <created>1636059966037</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1636059966037</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
