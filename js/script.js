@@ -66,7 +66,7 @@ function init() {
                 var target = e.get('target');
                 myMap.setCenter(target.geometry.getBounds()[0]);
                 if (typeof target.getGeoObjects === 'undefined') {
-                    myMap.setZoom(12);
+                    myMap.getZoom() < 12 ? myMap.setZoom(12) : '';
                 }
             });
 
@@ -98,7 +98,7 @@ function init() {
                 myMap.setCenter(cityCluster.getClusters()[0].geometry.getBounds()[0], 6);
             } else {
                 myMap.setCenter(cityCluster.getGeoObjects()[0].geometry.getBounds()[0], 6);
-                myMap.setZoom(12);
+                myMap.getZoom() < 12 ? myMap.setZoom(12) : '';
                 cityCluster.getGeoObjects()[0].balloon.open(cityCluster.getGeoObjects()[0]);
             }
 

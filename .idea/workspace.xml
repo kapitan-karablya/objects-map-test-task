@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d64797a8-348a-49e9-ae46-3d6f24e78dab" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/script.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -74,7 +75,7 @@
       <workItem from="1635842968851" duration="545000" />
       <workItem from="1635849155280" duration="20229000" />
       <workItem from="1635878453995" duration="3790000" />
-      <workItem from="1635932111941" duration="66937000" />
+      <workItem from="1635932111941" duration="67243000" />
     </task>
     <task id="LOCAL-00001" summary="Добавил формирование элементов страницы по входным данным">
       <created>1635983137651</created>
@@ -111,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1636059966037</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Поправил ссылку на API Яндекс Карт">
+      <created>1636060178503</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1636060178503</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +153,7 @@
     <MESSAGE value="Добавил карту и методы работы с ней, дополнил тестовые данные" />
     <MESSAGE value="Немного поправил код" />
     <MESSAGE value="Поправил закрытие балуна у городов с одним офисом" />
-    <option name="LAST_COMMIT_MESSAGE" value="Поправил закрытие балуна у городов с одним офисом" />
+    <MESSAGE value="Поправил ссылку на API Яндекс Карт" />
+    <option name="LAST_COMMIT_MESSAGE" value="Поправил ссылку на API Яндекс Карт" />
   </component>
 </project>
