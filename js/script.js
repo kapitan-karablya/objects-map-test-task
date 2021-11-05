@@ -4,14 +4,103 @@ ymaps.ready(init);
 
 function init() {
 
-    var myMap = new ymaps.Map("map", {
+    const myMap = new ymaps.Map("map", {
         center: [56.01, 92.85],
         zoom: 6,
         controls: []
     });
 
+    const customBalloonLayout = ymaps.templateLayoutFactory.createClass(
+        '<div class="popover top">' +
+        '<a class="close" href="#"></a>' +
+        '<div class="arrow"></div>' +
+        '<div class="popover-inner">' +
+        `$[[options.contentLayout observeSize minWidth=350 maxHeight=350 minHeight=150]]` +
+        '</div>' +
+        '</div>', {
+
+            build: function () {
+                this.constructor.superclass.build.call(this);
+
+                this._element = this.getParentElement().querySelector('.popover');
+                this._onCloseClick = this.onCloseClick.bind(this);
+
+                this.applyElementOffset();
+
+                this._element.querySelector('.close').addEventListener('click', this._onCloseClick);
+            },
+
+            clear: function () {
+                this._element.querySelector('.close').removeEventListener('click', this._onClickClick);
+
+                this.constructor.superclass.clear.call(this);
+            },
+
+            onSublayoutSizeChange: function () {
+                customBalloonLayout.superclass.onSublayoutSizeChange.apply(this, arguments);
+
+                if (!this._isElement(this._element)) {
+                    return;
+                }
+
+                this.applyElementOffset();
+
+                this.events.fire('shapechange');
+            },
+
+            applyElementOffset: function () {
+                Object.assign(this._element.style, {
+                    left: -(this._element.offsetWidth / 2) + 'px',
+                    top: -(this._element.offsetHeight + this._element.querySelector('.arrow').offsetHeight) + 'px'
+                });
+            },
+
+            onCloseClick: function (e) {
+                e.preventDefault();
+
+                this.events.fire('userclose');
+            },
+
+            getShape: function () {
+                if (!this._isElement(this._element)) {
+                    return customBalloonLayout.superclass.getShape.call(this);
+                }
+
+                const style = getComputedStyle(this._element);
+                const position = {
+                    left: parseFloat(style.left),
+                    top: parseFloat(style.top),
+                };
+
+                return new ymaps.shape.Rectangle(new ymaps.geometry.pixel.Rectangle([
+                    [position.left, position.top], [
+                        position.left + this._element.offsetWidth,
+                        position.top + this._element.offsetHeight + this._element.querySelector('.arrow').offsetHeight
+                    ]
+                ]));
+            },
+
+            _isElement: function (element) {
+                return element && element.querySelector('.arrow');
+            }
+        });
+
+    const customBalloonContentLayout = ymaps.templateLayoutFactory.createClass(
+        '<div class="popover-content">$[properties.balloonContent]</div>'
+    );
+
+    const customClusterBalloonContentLayout = ymaps.templateLayoutFactory.createClass([
+        '<div class="cluster-balloon-offices">',
+        '{% for geoObject in properties.geoObjects %}',
+        '<details class="cluster-balloon-office"><summary class="cluster-balloon-office-number">{{geoObject.properties.balloonContentHeader|raw}}</summary>',
+        '{{ geoObject.properties.balloonContent|raw }}',
+        '</details>',
+        '{% endfor %}',
+        '</div>'
+    ].join(''));
+
     const data = JSON.parse(testData);
-    let geoObjects = [];
+    const geoObjects = [];
 
     for (let i = 0; i < data.length; i++) {
         geoObjects[i] = createCountryTab(data[i], i);
@@ -44,12 +133,11 @@ function init() {
     function createCountyData(cities, id, collection) {
         if (!cities)
             return;
-
         let countryData = document.createElement('div');
         countryData.className = 'country-data';
         countryData.id = 'countryData-' + id;
         for (let i = 0; i < cities.length; i++) {
-            let cityCluster = new ymaps.Clusterer({
+            const cityCluster = new ymaps.Clusterer({
                 preset: 'islands#invertedBlueClusterIcons',
                 clusterIcons: [{
                     href: './img/placemark.svg',
@@ -60,10 +148,15 @@ function init() {
                 clusterDisableClickZoom: true,
                 clusterHideIconOnBalloonOpen: false,
                 geoObjectHideIconOnBalloonOpen: false,
+                balloonLayout: customBalloonLayout,
+                balloonContentLayout: customBalloonContentLayout,
+                clusterBalloonContentLayout: customClusterBalloonContentLayout,
+                balloonOffset: [110, 5],
+                balloonHeader: 's'
             },);
 
             cityCluster.events.add('click', function (e) {
-                var target = e.get('target');
+                const target = e.get('target');
                 myMap.setCenter(target.geometry.getBounds()[0]);
                 if (typeof target.getGeoObjects === 'undefined') {
                     myMap.getZoom() < 12 ? myMap.setZoom(12) : '';
@@ -119,8 +212,6 @@ function init() {
         let objectsList = document.createElement('ul');
         objectsList.className = 'offices-list';
         for (let i = 0; i < objects.length; i++) {
-
-
             let object = document.createElement('li');
             object.className = 'office';
             addObjectInformation(object, objects[i].name, `<div class="office-name">${objects[i].name}</div>`);
@@ -136,14 +227,20 @@ function init() {
             addObjectInformation(object, objects[i].email, `<a class="email" href="mailto:${objects[i].email}">${objects[i].email}</a>`);
             objectsList.append(object);
             if (objects[i].coordinates) {
-                let placemark = new ymaps.Placemark(objects[i].coordinates, {
+                const placemark = new ymaps.Placemark(objects[i].coordinates, {
                     balloonContent: object.outerHTML,
-                    clusterCaption: 'Объект ' + (Number(i) + 1)
+                    balloonContentHeader: 'Офис №' + (Number(i) + 1)
                 }, {
                     iconLayout: 'default#image',
                     iconImageHref: './img/placemark.svg',
                     iconImageSize: [20, 20],
-                    iconImageOffset: [-10, -10]
+                    iconImageOffset: [-10, -10],
+                    balloonShadow: false,
+                    balloonLayout: customBalloonLayout,
+                    balloonContentLayout: customBalloonContentLayout,
+                    balloonPanelMaxMapArea: 0,
+                    hideIconOnBalloonOpen: false,
+                    balloonOffset: [110, 5]
                 });
                 cityCluster.add(placemark);
             }

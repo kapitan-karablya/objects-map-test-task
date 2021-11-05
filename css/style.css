@@ -36,11 +36,10 @@
     --secondary-color: #ff9e00;
 
     --email-link-color: #32b3e9;
+    --scrollbar-color: #babac0;
 
     --country-bg-color: var(--color-white);
     --active-country-bg-color: var(--secondary-color);
-
-
 }
 
 html, body {
@@ -56,17 +55,24 @@ html, body {
     flex-direction: row;
     font-family: 'HelveticaNeueCyr', sans-serif;
 }
+/* Map */
+
+.map {
+    width: 100%;
+}
+
 
 /* Filter */
 
 .sidebar {
     width: 396px;
     height: 100%;
+    display: flex;
+    flex-direction: column;
     flex-shrink: 0;
     background-color: var(--gray-light, #fafafa);
     box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.17);
 }
-
 
 .countries {
     width: 100%;
@@ -101,7 +107,24 @@ html, body {
 
 .country-data {
     display: none;
+    overflow-y: scroll;
+    height: 100%;
 }
+
+.country-data::-webkit-scrollbar {
+    width: 6px;
+}
+
+.country-data::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 5px;
+}
+
+.country-data::-webkit-scrollbar-button {
+    display:none;
+}
+
+
 
 .country-data.active {
     display: block;
@@ -126,13 +149,13 @@ html, body {
     cursor: pointer;
     position: relative;
     user-select: none;
-    color: var(--main-color);
+    color: var(--main-color, #1e355d);
 }
 
 .city-name:after {
     right: 41px;
     top: 26px;
-    background-color: var(--main-color);
+    background-color: var(--main-color, #1e355d);
     -webkit-mask-image: url("../img/dropdown.svg");
     mask-image: url("../img/dropdown.svg");
     width: 12px;
@@ -155,12 +178,12 @@ summary.city-name {
 }
 
 details[open] > summary.city-name {
-    color: var(--secondary-color);
+    color: var(--secondary-color, #ff9e00);
 }
 
 details[open] > summary.city-name:after {
     transform: rotateZ(180deg);
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color, #ff9e00);
 }
 
 details[open] > summary.city-name ~ * {
@@ -188,7 +211,7 @@ details[open] > summary.city-name ~ * {
 }
 
 .office-name {
-    color: var(--main-color);
+    color: var(--main-color, #1e355d);
     font-weight: bold;
     margin-bottom: 19px;
 }
@@ -217,73 +240,116 @@ details[open] > summary.city-name ~ * {
 }
 
 
-/* Map */
+/* Balloon */
 
-
-.map {
-    width: 100%;
-}
-
-.ymaps-2-1-79-balloon,
-.ymaps-2-1-79-balloon .ymaps-2-1-79-balloon__layout,
-.ymaps-2-1-79-balloon .ymaps-2-1-79-balloon__tail,
-.ymaps-2-1-79-balloon .ymaps-2-1-79-balloon__tail:after,
-.ymaps-2-1-79-balloon .ymaps-2-1-79-balloon__content {
-    background: var(--main-color);
-}
-
-
-.ymaps-2-1-79-balloon .ymaps-2-1-79-b-cluster-tabs__section {
-    color: white;
-}
-
-.ymaps-2-1-79-balloon .ymaps-2-1-79-balloon__close-button {
-    opacity: 1;
-    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCI+PHBhdGggZmlsbD0iI2ZmZiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTQgLjdsLS43LS43TDcgNi4zLjcgMCAwIC43IDYuMyA3IDAgMTMuM2wuNy43TDcgNy43bDYuMyA2LjMuNy0uN0w3LjcgN3oiIGNsaXAtcnVsZT0iZXZlbm9kZCIvPjwvc3ZnPg==) 50% no-repeat;
-}
-
-.ymaps-2-1-79-balloon .ymaps-2-1-79-b-cluster-tabs {
-    width: 400px;
-    height: 180px;
-}
-
-.ymaps-2-1-79-balloon .ymaps-2-1-79-b-cluster-tabs__menu-item_current_yes {
-    background-color: var(--secondary-color);
-}
-
-
-.ymaps-2-1-79-balloon .ymaps-2-1-79-b-cluster-tabs__section {
-    border-color: var(--secondary-color);
-}
-
-.ymaps-2-1-79-balloon .ymaps-2-1-79-b-cluster-tabs__menu-item-text {
-    color: white;
-}
-
-.Прямоугольник_23 {
-    background-color: rgb(30, 53, 93);
-    opacity: 0.969;
+.popover {
     position: absolute;
-    left: 925px;
-    top: 105px;
+    top: 0;
+    left: 0;
+    display: block;
     width: 376px;
-    height: 195px;
-    z-index: 29;
+    min-height: 180px;
+    padding: 10px;
+    box-sizing: border-box;
+    text-align: left;
+    white-space: normal;
+    background-color: var(--main-color, #1e355d);
+
 }
 
+.popover.top .arrow {
+    bottom: -11px;
+    left: 79px;
+    margin-left: -11px;
+    border-bottom-width: 0;
+}
 
+.popover .arrow {
+    border-width: 11px;
+}
 
-.ymaps-2-1-79-balloon .office {
-    margin-bottom: 0;
+.popover .arrow, .popover .arrow:after {
+    position: absolute;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.popover.top .arrow:after {
+    bottom: 1px;
+    margin-left: -10px;
+    border-top-color: var(--main-color, #1e355d);
+    border-bottom-width: 0;
+}
+
+.popover .arrow:after {
+    border-width: 10px;
+    content: "";
+}
+
+.popover.top {
+    margin-top: -10px;
+}
+
+.popover .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 22px;
+    height: 22px;
+    box-sizing: border-box;
+    margin: 5px;
+    background: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMDYgLTEwNiA0MjQgNDI0IiB4bWw6c3BhY2U9InByZXNlcnZlIj48cGF0aCBzdHlsZT0iZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQiIGZpbGw9IiNmZmYiIGQ9Im0xMzEuODA0IDEwNi40OTEgNzUuOTM2LTc1LjkzNmM2Ljk5LTYuOTkgNi45OS0xOC4zMjMgMC0yNS4zMTItNi45OS02Ljk5LTE4LjMyMi02Ljk5LTI1LjMxMiAwTDEwNi40OTEgODEuMTggMzAuNTU0IDUuMjQyYy02Ljk5LTYuOTktMTguMzIyLTYuOTktMjUuMzEyIDAtNi45ODkgNi45OS02Ljk4OSAxOC4zMjMgMCAyNS4zMTJsNzUuOTM3IDc1LjkzNi03NS45MzcgNzUuOTM3Yy02Ljk4OSA2Ljk5LTYuOTg5IDE4LjMyMyAwIDI1LjMxMiA2Ljk5IDYuOTkgMTguMzIyIDYuOTkgMjUuMzEyIDBsNzUuOTM3LTc1LjkzNyA3NS45MzcgNzUuOTM3YzYuOTg5IDYuOTkgMTguMzIyIDYuOTkgMjUuMzEyIDAgNi45OS02Ljk5IDYuOTktMTguMzIyIDAtMjUuMzEybC03NS45MzYtNzUuOTM2eiIvPjwvc3ZnPg==) 50% no-repeat;
+}
+
+.popover .office {
     font-family: 'HelveticaNeueCyr', sans-serif;
     font-size: 14px;
-    color: white;
-}
-.ymaps-2-1-79-balloon  .office-name {
-    color: var(--secondary-color);
+    color: var(--color-white, #fff);
+    margin: 0 20px 40px 30px;
 }
 
-.ymaps-2-1-79-balloon .phone {
-    color: white;
+.popover  .office-name {
+    color: var(--secondary-color, #ff9e00);
 }
+
+.popover .phone {
+    color: var(--color-white, #fff);
+}
+
+.popover .popover-inner > ymaps {
+    overflow-y: scroll !important;
+    margin-top: 20px;
+}
+
+.cluster-balloon-offices {
+   margin-left: 20px;
+}
+
+.cluster-balloon-offices .office {
+    margin-bottom: 15px;
+}
+
+.cluster-balloon-offices .office div {
+    margin-bottom: 10px;
+}
+
+.cluster-balloon-office-number {
+    color: var(--color-white);
+    user-select: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.popover .popover-inner > ymaps::-webkit-scrollbar {
+    width: 6px;
+}
+
+.popover .popover-inner > ymaps::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-color);
+    border-radius: 5px;
+}
+.popover .popover-inner > ymaps::-webkit-scrollbar-button {
+    display:none;
+}
+
 
